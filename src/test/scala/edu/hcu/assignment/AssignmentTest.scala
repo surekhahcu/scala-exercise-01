@@ -20,6 +20,14 @@ class AssignmentTest extends FunSuite {
     assert(result === expectResult)
   }
 
+  //3rd
+  test("Rotation Of An Array") {
+    val result = obj.rotate(Array(1, 2, 3, 4, 5), 2)
+    val expectResult = Array(3, 4, 5, 1, 2)
+    assert(result === expectResult)
+  }
+
+
   //4th
   test("Sum Of Two Options") {
     val result = obj.sum(Some(2), None)
@@ -50,23 +58,35 @@ class AssignmentTest extends FunSuite {
 
   //8th
   test("Implicit class") {
-   // val result =
-    val expectResult =4
-  //  assert(result === expectResult)
+    // val result =
+    val expectResult = 4
+    //  assert(result === expectResult)
   }
 
   //9th
 
   test("Directory") {
-     val result =obj.countFiles("/home/surekha/learning-scala/scala-exercise-01/src/main/scala/edu/hcu/assignment")
-    val expectResult =Some(2)
-     assert(result === expectResult)
+    val result = obj.countFiles("/home/surekha/learning-scala/scala-exercise-01/src/main/scala/edu/hcu/assignment")
+    val expectResult = Some(2)
+    assert(result === expectResult)
   }
 
+  //10th
+  test("Remove all keys from Map if their value are odd") {
+    val result = obj.removeOdd(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> 4))
+    val expectResult = Map("b" -> 2, "d" -> 4)
+    assert(result === expectResult)
+  }
+  //11th
+  test("Remove list of keys from Map(just like Map’s “ --” function )") {
+    val result = obj.removeKeys(List("a", "b"), Map("c" -> 1, "a" -> 22, "b" -> 4, "d" -> 5))
+    val expectResult = Map("c" -> 1, "d" -> 5)
+    assert(result === expectResult)
+  }
 
   //12th
   test("Merge Of Two List") {
-    val result = obj.merge(List(1,2),List(3,4))
+    val result = obj.merge(List(1, 2), List(3, 4))
     val expectResult = List(1, 2, 3, 4)
     assert(result === expectResult)
   }
@@ -78,8 +98,14 @@ class AssignmentTest extends FunSuite {
   }
   //14th
   test("Zip") {
-    val result = obj.zip(List(1,2,3),List("a","b","c"))
-    val expectResult = List((1,"a"),(2,"b"),(3,"c"))
+    val result = obj.zip(List(1, 2, 3), List("a", "b", "c"))
+    val expectResult = List((1, "a"), (2, "b"), (3, "c"))
+    assert(result === expectResult)
+  }
+  //15th
+  test("Merge Of Two sorted List") {
+    val result = obj.merge(List(1, 3, 5), List(2, 4))
+    val expectResult = List(1, 2, 3, 4, 5)
     assert(result === expectResult)
   }
 }

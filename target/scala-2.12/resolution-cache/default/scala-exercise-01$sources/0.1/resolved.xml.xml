@@ -4,7 +4,7 @@
 		module="scala-exercise-01$sources"
 		revision="0.1"
 		status="integration"
-		publication="20190116112540"
+		publication="20190117130403"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

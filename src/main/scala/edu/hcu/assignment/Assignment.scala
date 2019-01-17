@@ -25,9 +25,10 @@ class Assignment {
   }
 
   //3rd
-  def rotate(a: Array[Int], r: Int): Array[Int] = {
-    ???
+  def rotate(a: Array[Int], n: Int): Array[Int] = {
+    a.drop(n) ++ a.take(n)
   }
+
 
   //4th
   def sum(opt1: Option[Int], opt2: Option[Int]): Option[Int] = {
@@ -116,42 +117,111 @@ class Assignment {
         acc
       }
     }
+
     zip(list1, list2, List())
   }
 
-  //15th/15th Merge two sorted List Int A One Sorted List
+  //15th Merge two sorted List Int A One Sorted List
   def merge2(list1: List[Int], list2: List[Int]): List[Int] = {
-     val combinedList = list1.foldLeft(list2){(acc,ele)=> acc :+ ele  }
-     sort(combinedList)
-   }
-  /*
-      def sort(list: List[Int]) = {
-       list match {
-         case Nil => Nil
-          case head :: tail =>
+    val combinedList = list1.foldLeft(list2) { (acc, ele) => acc :+ ele }
+    sort(combinedList)
+  }
 
 
-       }
-     }
-   */
-
-   def sort(list: List[Int]) = {
+  def sort(list: List[Int]) = {
     def insert(list: List[Int], ele: Int): List[Int] = {
-       list match {
-          case Nil => ele :: Nil
-         case head :: tail =>
-           if (head > ele) ele :: head :: tail else head :: insert(tail, ele)
-       }
+      list match {
+        case Nil => ele :: Nil
+        case head :: tail =>
+          if (head > ele) ele :: head :: tail else head :: insert(tail, ele)
       }
-      def sort(list: List[Int], acc: List[Int]): List[Int] = {
-        if (list.nonEmpty) {
-          sort(list.tail, insert(list, list.head))
-       } else {
-         acc
-       }
-      }
-      sort(list, Nil)
     }
+
+    def sort(list: List[Int], acc: List[Int]): List[Int] = {
+      if (list.nonEmpty) {
+        sort(list.tail, insert(list, list.head))
+      } else {
+        acc
+      }
+    }
+
+    sort(list, Nil)
+  }
+
+
+
+  //16th
+  //a) Increase 10 % basic
+  // b) Increase 20% hra if age greater than 50
+  case class Salary(basic: Double, hra: Double, ta: Double)
+
+
+
+  case class Employee(id: Int, email: String, salary: Salary, age: Int)
+
+  /*
+  def appraisal(emps: List[Employee]): List[Employee] = {
+    emps.map { emp =>
+      val salary = emp.salary
+      val updatedBasic = (salary.basic + (salary.basic * 10) / 100)
+      val updatesHRA = if (emp.age > 50) (salary.hra + (salary.hra * 20) / 100) else salary.hra
+      val updateSalary = Salary(updatedBasic, updatesHRA, salary.ta)
+      Employee(emp.id, emp.email, updateSalary, emp.age)
+    }
+  }
+*/
+
+  def appraisal2(emps: List[Employee]): List[Employee] = {
+    emps.map { emp =>
+      val salary = emp.salary
+      val updatedBasic = (salary.basic + (salary.basic * 10) / 100)
+      val updatesHRA = if (emp.age > 50) (salary.hra + (salary.hra * 20) / 100) else salary.hra
+      val updateSalary = Salary(updatedBasic, updatesHRA, salary.ta)
+      emp.copy(salary = updateSalary)
+    }
+  }
+
+
+
+
+  //17th CS,IT,EC,ME
+  case class Student(id: Int, name: String, age: Int, branch: String)
+
+
+  def spiltByBranch(list: List[Student]): (List[Student], List[Student], List[Student], List[Student]) = {
+    /*   val cs: List[Student] = list.filter(student => student.branch == "CS")
+       val it: List[Student] = list.filter(student => student.branch == "IT")
+       val ec: List[Student] = list.filter(student => student.branch == "EC")
+       val me: List[Student] = list.filter(student => student.branch == "ME")*/
+
+    val cs: List[Student] = list.filter { case Student(id, name, age, branch) => branch == "CS" }
+    val it: List[Student] = list.filter { case Student(id, name, age, branch) => branch == "IT" }
+    val ec: List[Student] = list.filter { case Student(id, name, age, branch) => branch == "EC" }
+    val me: List[Student] = list.filter { case Student(id, name, age, branch) => branch == "ME" }
+    (cs, it, ec, me)
+  }
+
+
+
+  //18th
+  case class Customer(value: Int)
+
+  case class Consultant(portfolio: List[Customer])
+
+  case class Branch(consultants: List[Consultant])
+
+  case class Company(branches: List[Branch])
+
+  def getCompanyValue(company: Company): Int = {
+    val valuesList: List[Int] =
+      for {i <- Branch
+           j <- Consultant
+           k <- Customer
+      } yield {
+        valuesList.foldLeft(List[Int]()) { (temp, ele) => temp :+ ele }
+      }
+    valuesList reduce (_ + _)
+  }
 
 
 }
