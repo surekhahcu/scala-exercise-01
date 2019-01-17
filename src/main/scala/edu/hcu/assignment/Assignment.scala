@@ -212,16 +212,14 @@ class Assignment {
 
   case class Company(branches: List[Branch])
 
-  def getCompanyValue(company: Company): Int = {
-    val valuesList: List[Int] =
-      for {i <- Branch
-           j <- Consultant
-           k <- Customer
-      } yield {
-        valuesList.foldLeft(List[Int]()) { (temp, ele) => temp :+ ele }
-      }
-    valuesList reduce (_ + _)
-  }
 
+  def getCompanyValue(company: Company): Int = {
+    val valuesList: List[Int] = for {
+      branch <- company.branches
+      consultant <- branch.consultants
+      customer <- consultant.portfolio
+    } yield customer.value
+    valuesList.foldLeft(0) { (acc, elem) => (acc + elem) }
+  }
 
 }
