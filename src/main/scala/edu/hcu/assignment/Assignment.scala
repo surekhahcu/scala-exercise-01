@@ -149,12 +149,10 @@ class Assignment {
   }
 
 
-
   //16th
   //a) Increase 10 % basic
   // b) Increase 20% hra if age greater than 50
   case class Salary(basic: Double, hra: Double, ta: Double)
-
 
 
   case class Employee(id: Int, email: String, salary: Salary, age: Int)
@@ -171,7 +169,7 @@ class Assignment {
   }
 */
 
-  def appraisal2(emps: List[Employee]): List[Employee] = {
+  def appraisal(emps: List[Employee]): List[Employee] = {
     emps.map { emp =>
       val salary = emp.salary
       val updatedBasic = (salary.basic + (salary.basic * 10) / 100)
@@ -180,8 +178,6 @@ class Assignment {
       emp.copy(salary = updateSalary)
     }
   }
-
-
 
 
   //17th CS,IT,EC,ME
@@ -202,7 +198,6 @@ class Assignment {
   }
 
 
-
   //18th
   case class Customer(value: Int)
 
@@ -214,12 +209,27 @@ class Assignment {
 
 
   def getCompanyValue(company: Company): Int = {
-    val valuesList: List[Int] = for {
-      branch <- company.branches
-      consultant <- branch.consultants
-      customer <- consultant.portfolio
-    } yield customer.value
+    val valuesList: List[Int] =
+      for {
+        branch <- company.branches
+        consultant <- branch.consultants
+        customer <- consultant.portfolio
+      } yield {
+        customer.value
+      }
     valuesList.foldLeft(0) { (acc, elem) => (acc + elem) }
   }
+
+
+  def getCompanyValue2(company: Company): Int = {
+    val valuesList: List[Int] =
+      company.branches.flatMap { branch =>
+        branch.consultants.flatMap { consultant =>
+          consultant.portfolio.map(customer => customer.value)
+        }
+      }
+    valuesList.foldLeft(0) { (acc, elem) => (acc + elem) }
+  }
+
 
 }

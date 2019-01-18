@@ -67,7 +67,7 @@ class AssignmentTest extends FunSuite {
 
   test("Directory") {
     val result = obj.countFiles("/home/surekha/learning-scala/scala-exercise-01/src/main/scala/edu/hcu/assignment")
-    val expectResult = Some(2)
+    val expectResult = Some(1)
     assert(result === expectResult)
   }
 
@@ -104,8 +104,59 @@ class AssignmentTest extends FunSuite {
   }
   //15th
   test("Merge Of Two sorted List") {
-    val result = obj.merge(List(1, 3, 5), List(2, 4))
+    val result = obj.merge2(List(1, 3, 5), List(2, 4))
     val expectResult = List(1, 2, 3, 4, 5)
     assert(result === expectResult)
   }
+
+  //16th
+  val sal = obj.Salary(20.0, 30.0, 40.0)
+  val emp = obj.Employee(1, "gmail", sal, 60)
+  val emp1 = obj.Employee(2, "gmail2", sal, 50)
+  test("appraisal") {
+    val result = obj.appraisal(List(emp, emp1))
+    val expectResult = List(obj.Employee(1, "gmail", obj.Salary(22.0, 36.0, 40.0), 60), obj.Employee(2, "gmail2", obj.Salary(22.0, 30.0, 40.0), 50))
+    assert(result === expectResult)
+  }
+
+  //17th
+  val stu1 = obj.Student(1, "Surekha", 22, "CS")
+  val stu2 = obj.Student(2, "Sur", 23, "IT")
+  val stu3 = obj.Student(3, "Rekha", 24, "ME")
+  val stu4 = obj.Student(4, "Rakhi", 25, "EC")
+  val stu5 = obj.Student(5, "Suman", 32, "CS")
+  test("Student List") {
+    val result = obj.spiltByBranch(List(stu1, stu2, stu3, stu4, stu5))
+    val expectResult = (List(obj.Student(1, "Surekha", 22, "CS"), obj.Student(5, "Suman", 32, "CS")), List(obj.Student(2, "Sur", 23, "IT")), List(obj.Student(4, "Rakhi", 25, "EC")), List(obj.Student(3, "Rekha", 24, "ME")))
+    assert(result === expectResult)
+  }
+
+  //18th
+  val c1 = obj.Customer(2)
+  val c2 = obj.Customer(5)
+  val c3 = obj.Customer(6)
+  val c4 = obj.Customer(8)
+  val c5 = obj.Customer(10)
+  val c6 = obj.Customer(18)
+
+
+  val consultant1 = obj.Consultant(List(c1, c2))
+  val consultant2 = obj.Consultant(List(c3, c4))
+  val consultant3 = obj.Consultant(List(c2, c3))
+  val consultant4 = obj.Consultant(List(c1, c2, c3, c4))
+  val consultant5 = obj.Consultant(List(c1, c2, c5, c6))
+
+  val branch1 = obj.Branch(List(consultant1, consultant2, consultant3))
+  val branch2 = obj.Branch(List(consultant1, consultant3, consultant4))
+  val branch3 = obj.Branch(List(consultant3, consultant4, consultant5))
+  val branch4 = obj.Branch(List(consultant4, consultant5))
+
+
+  val company = obj.Company(List(branch1, branch2, branch3, branch4))
+  test("Company Value") {
+    val result = obj.getCompanyValue(company)
+    val expectResult = 194
+    assert(result === expectResult)
+  }
+
 }
