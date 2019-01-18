@@ -124,28 +124,20 @@ class Assignment {
   //15th Merge two sorted List Int A One Sorted List
   def merge2(list1: List[Int], list2: List[Int]): List[Int] = {
     val combinedList = list1.foldLeft(list2) { (acc, ele) => acc :+ ele }
-    sort(combinedList)
+    insertion(combinedList.toArray)
   }
 
-
-  def sort(list: List[Int]) = {
-    def insert(list: List[Int], ele: Int): List[Int] = {
-      list match {
-        case Nil => ele :: Nil
-        case head :: tail =>
-          if (head > ele) ele :: head :: tail else head :: insert(tail, ele)
+  def insertion(arr: Array[Int]): List[Int] = {
+    for (i <- 1 to arr.length - 1) {
+      var j = i
+      while ((j > 0) && (arr(j - 1) > arr(j))) {
+        arr(j - 1) = arr(j - 1) + arr(j)
+        arr(j) = arr(j - 1) - arr(j)
+        arr(j - 1) = arr(j - 1) - arr(j)
+        j = j - 1
       }
     }
-
-    def sort(list: List[Int], acc: List[Int]): List[Int] = {
-      if (list.nonEmpty) {
-        sort(list.tail, insert(list, list.head))
-      } else {
-        acc
-      }
-    }
-
-    sort(list, Nil)
+    arr.toList
   }
 
 
